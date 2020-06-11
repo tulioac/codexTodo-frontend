@@ -58,7 +58,7 @@ h1 {
 
 p {
   color: var(--cinza);
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 
 a {
@@ -73,11 +73,13 @@ a:hover {
 }
 
 #dashboard {
-  padding: 10% 36px;
+  padding: 30px 36px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  justify-content: space-evenly;
+  min-height: 450px;
 }
 
 input {
@@ -139,4 +141,9 @@ button:hover {
 
 .espesso {
   border-bottom: 4px solid var(--primaria);
+}
+
+.extra {
+  margin-top: 30px;
+  text-align: center;
 }
