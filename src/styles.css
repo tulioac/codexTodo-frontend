@@ -47,6 +47,21 @@ body {
   background-color: var(--claro);
 }
 
+p {
+  color: var(--cinza);
+  margin-bottom: 25px;
+}
+
+a {
+  color: var(--escuro);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#dashboard {
+  padding: 5% 36px;
+}
+
 .sublinhado {
   color: var(--primaria);
   border-bottom: 4px solid var(--primaria);
