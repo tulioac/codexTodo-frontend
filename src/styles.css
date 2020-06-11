@@ -58,11 +58,20 @@ a {
   font-weight: bold;
 }
 
+a:hover {
+  color:var(--primaria);
+}
+
 #dashboard {
   padding: 5% 36px;
 }
 
 .sublinhado {
   color: var(--primaria);
+  border-bottom: 2px solid var(--primaria);
+  /* Tentar trocar 4px por um valor percentual ao tamanho da fonte */
+}
+
+.espesso {
   border-bottom: 4px solid var(--primaria);
 }
