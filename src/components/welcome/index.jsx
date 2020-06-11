@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default props => {
-  const bemvindo = <p>Bem vindo ao gerenciador de tarefas da <span class="sublinhado">CodeX</span>.</p>;
+  const bemvindo = <p>Bem vindo ao gerenciador de tarefas da <a href="https://www.codexjr.com.br/" class="sublinhado" target="_blank" rel="noopener noreferrer">CodeX</a>.</p>;
 
-  const login = <a href="/">Acesse</a>;
-  const cadastro = <a href="/">Crie</a>;
+  const login = <Link to="/login">Acesse</Link>;
+  const cadastro = <Link to="/register">Crie</Link>;
 
   const acessar = <p>{login} sua conta ou {cadastro} uma para começar a utilizar!</p>;
 
