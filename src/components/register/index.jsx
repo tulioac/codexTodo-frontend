@@ -20,20 +20,12 @@ export default class Register extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
 
-    const data = JSON.stringify(this.state);
-    console.log(data);
+    // TODO: Tratar resposta do servidor
 
-    const { name, email, password } = this.state;
-
-    // TODO: Adicionar redirecionamento dependendo da resposta e mensagens caso der errado
-
-    api.post('/auth/register',
-      { name, email, password },
-      {
-        headers: { 'Content-Type': 'application/json' }
-      })
+    api.post('/auth/register', { ...this.state }, {
+      headers: { 'Content-Type': 'application/json' }
+    })
       .then(response => {
         localStorage.setItem('token', response.data.token);
         console.log(response)
@@ -58,10 +50,10 @@ export default class Register extends Component {
 
   render() {
     return (
-      <div id="register">
+      <div>
         <h2>Cadastro</h2>
 
-        <form onSubmit={this.handleSubmit} id="oi">
+        <form onSubmit={this.handleSubmit}>
           <input type="text" name="name" placeholder="Nome" className="caixa" value={this.state.name} onChange={this.handleChange} />
           <input type="email" name="email" placeholder="Email" className="caixa" value={this.state.email} onChange={this.handleChange} />
           <input type="password" name="password" placeholder="Senha" className="caixa" value={this.state.password} onChange={this.handleChange} />
