@@ -56,6 +56,11 @@ h1 {
   font-weight: 700;
 }
 
+h2 {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
 p {
   color: var(--cinza);
   margin-bottom: 10px;
@@ -70,16 +75,6 @@ a {
 
 a:hover {
   color:var(--primaria);
-}
-
-#dashboard {
-  padding: 30px 36px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  justify-content: space-evenly;
-  min-height: 450px;
 }
 
 input {
@@ -124,6 +119,23 @@ button:hover {
   background-color: var(--primaria-escura);
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#dashboard {
+  padding: 30px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  min-height: 450px;
+}
+
 .caixa {
   background-color: #fff;
   border: 1px solid var(--primaria);
@@ -144,6 +156,15 @@ button:hover {
 }
 
 .extra {
-  margin-top: 30px;
+  position: fixed;
+  top: 500px;
   text-align: center;
+
+  left: 50%;
+  width: auto;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
 }
