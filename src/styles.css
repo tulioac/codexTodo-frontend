@@ -157,7 +157,7 @@ form {
 
 .extra {
   position: fixed;
-  top: 500px;
+  top: 600px;
   text-align: center;
 
   left: 50%;
@@ -167,4 +167,10 @@ form {
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
+}
+
+.error {
+  text-align: center;
+  color: var(--vermelho);
+  font-weight: 500;
 }

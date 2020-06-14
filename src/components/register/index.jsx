@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+
 import api from '../../services';
 
 export default class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      email: "",
-      password: ""
+      form: {
+        name: "",
+        email: "",
+        password: ""
+      }
     }
   }
 
   handleChange = e => {
     const { name, value } = e.target;
 
-    this.setState({ [name]: value });
+    this.setState({ form: { ...this.state.form, [name]: value } });
   }
 
   handleSubmit = e => {

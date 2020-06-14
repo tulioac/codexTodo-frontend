@@ -1,31 +1,37 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+
 import api from '../../services';
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: ""
+      form: {
+        email: "",
+        password: ""
+      },
+      showModal: false
     }
   }
 
   handleChange = e => {
     const { name, value } = e.target;
 
-    this.setState({ [name]: value });
+    this.setState({ form: { ...this.state.form, [name]: value } });
   }
 
   handleSubmit = e => {
     e.preventDefault();
 
-    api.post('/auth/authenticate', { ...this.state }, {
+    const { email, password } = this.state.form;
+
+    api.post('/auth/authenticate', { email, password }, {
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => {
         localStorage.setItem('token', response.data.token);
-        console.log(response);
+
       })
       .catch(error => {
         console.log(error.response);
