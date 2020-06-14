@@ -134,6 +134,7 @@ form {
   width: 100%;
   justify-content: space-evenly;
   min-height: 450px;
+  position: relative;
 }
 
 .caixa {
@@ -156,7 +157,7 @@ form {
 }
 
 .extra {
-  position: fixed;
+  position: absolute;
   top: 600px;
   text-align: center;
 
@@ -170,8 +171,8 @@ form {
 }
 
 .errorMessage {
-  position: fixed;
-  top: 475px;
+  position: absolute;
+  top: 425px;
   text-align: center;
   color: var(--vermelho);
   font-weight: 500;

@@ -11,14 +11,7 @@ export default class Controller extends Component {
       <HashRouter>
         <div className="App">
           <Header />
-          <Routes />
-          {/* Header */}
-          {/* Router:  
-            Tarefas
-            Login
-            Cadastro
-            Bem vindo
-          */}
+          <Routes authenticated={true} />
         </div>
       </HashRouter>
     );
