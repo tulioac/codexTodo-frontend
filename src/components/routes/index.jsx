@@ -5,7 +5,6 @@ import Welcome from '../welcome';
 import Login from '../login';
 import Register from '../register';
 import Tasks from '../tasksController';
-import LoggedRoute from '../loggedRoute';
 
 export default class Routes extends Component {
   render() {
