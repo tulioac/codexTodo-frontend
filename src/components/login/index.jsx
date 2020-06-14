@@ -10,8 +10,7 @@ export default class Login extends Component {
       form: {
         email: "",
         password: ""
-      },
-      showModal: false
+      }
     }
   }
 
@@ -34,11 +33,24 @@ export default class Login extends Component {
 
       })
       .catch(error => {
-        console.log(error.response);
+        if (error.status !== 200) {
+          this.errorMessage();
+        }
       })
+  }
 
+  errorMessage = () => {
+    const p = document.querySelector("p.errorMessage");
 
-    // TODO: Tratar resposta do servidor
+    p.style.opacity = '1';
+    p.style.visibility = 'visible';
+
+    p.innerHTML = 'Erro ao acessar sua conta. Verifique suas credencias.';
+
+    setTimeout(() => {
+      p.style.opacity = '0';
+      p.style.visibility = 'hidden';
+    }, 5000)
   }
 
   render() {
@@ -51,6 +63,8 @@ export default class Login extends Component {
           <input type="password" name="password" placeholder="Senha" className="caixa" value={this.state.password} onChange={this.handleChange} />
           <button>Acessar</button>
         </form>
+
+        <p className="errorMessage">Erro ao acessar sua conta. Verifique suas credencias.</p>
 
         <div className="extra">
           <p>Não possui conta?</p>

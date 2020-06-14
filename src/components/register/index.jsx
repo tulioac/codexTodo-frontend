@@ -24,20 +24,19 @@ export default class Register extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    // TODO: Tratar resposta do servidor
-
     api.post('/auth/register', { ...this.state }, {
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => {
         localStorage.setItem('token', response.data.token);
-        console.log(response)
       })
       .catch(error => {
-        console.log(error.response)
+        if (error.status !== 200) {
+          this.errorMessage();
+        }
       });
 
-    // this.resetSubmit();
+    // FIXME this.resetSubmit();
   }
 
   resetSubmit = () => {
@@ -51,6 +50,20 @@ export default class Register extends Component {
     console.log(this.state);
   }
 
+  errorMessage = () => {
+    const p = document.querySelector("p.errorMessage");
+
+    p.style.opacity = '1';
+    p.style.visibility = 'visible';
+
+    p.innerHTML = 'Erro ao cadastrar sua conta. Tente um email diferente.';
+
+    setTimeout(() => {
+      p.style.opacity = '0';
+      p.style.visibility = 'hidden';
+    }, 5000)
+  }
+
   render() {
     return (
       <div>
@@ -62,6 +75,8 @@ export default class Register extends Component {
           <input type="password" name="password" placeholder="Senha" className="caixa" value={this.state.password} onChange={this.handleChange} />
           <button type="submit">Criar Conta</button>
         </form>
+
+        <p className="errorMessage"></p>
 
         <div className="extra">
           <p>Já possui conta?</p>
