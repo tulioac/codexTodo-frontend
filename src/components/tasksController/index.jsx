@@ -31,7 +31,7 @@ export default class Tasks extends Component {
 
   render() {
 
-    // TODO: Criar opção para ordenar por prioridade
+    // TODO: Criar opção para ordenar por prioridade ou por nome
 
     // TODO: Criar esqueleto enquanto carrega as tarefas
 
