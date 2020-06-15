@@ -17,7 +17,7 @@ export default class Routes extends Component {
     if (this.props.authenticated) {
       rota =
         <Switch>
-          <Route exact path='/' component={Tasks} />;
+          <Route exact path='/' render={props => (<Tasks {...this.props} />)} />;
           <Redirect from='*' to='/' />;
         </Switch>
     } else {
@@ -25,7 +25,6 @@ export default class Routes extends Component {
         <Route exact path='/' component={Welcome} />;
         <Route path='/login' render={props => (<Login {...this.props} />)} />
         <Route path='/register' render={props => (<Register {...this.props} />)} />
-        <Route path='/tasks' render={props => (<Tasks {...this.props} />)} />
         <Redirect from='*' to='/' />
       </Switch>
     }
