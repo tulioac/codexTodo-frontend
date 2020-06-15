@@ -1,28 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './styles.css';
 
 // TODO: Criar tarefa e passar para o TasksController
 
 export default props => {
 
-  let nomeDaTarefa;
+  const [nomeDaTarefa, setNomeDaTarefa] = useState("");
 
   const criarTarefa = () => {
     console.log('Criar tarefa:', nomeDaTarefa);
 
+    props.criarTarefa(nomeDaTarefa);
     // TODO: Passar tarefa para TasksController
-    // TODO: Limpar input
+
+    setNomeDaTarefa("");
   }
 
   const handleChange = (e) => {
-    nomeDaTarefa = e.target.value;
+    setNomeDaTarefa(e.target.value);
   }
 
-
-  return <div id="addTask">
-    <input type="text" placeholder="Nova tarefa" className="textLike" value={nomeDaTarefa} onChange={handleChange} />
-    <button className="vazio" onClick={criarTarefa}>
-      Criar
+  return (
+    <div id="addTask">
+      <input type="text" placeholder="Nova tarefa" className="textLike" value={nomeDaTarefa} onChange={handleChange} />
+      <button className="vazio" onClick={criarTarefa}>
+        Criar
     </button>
-  </div>
+    </div>
+  );
 }

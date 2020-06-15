@@ -21,12 +21,23 @@ export default class Tasks extends Component {
       .then(response => {
         const { todos } = response.data;
         this.setState({ todos });
+
+        console.log(this.state);
       })
       .catch(console.log());
   }
 
   criarTarefa = (tarefa) => {
+    console.log('Tarefa recebida', tarefa);
 
+    api.post('/todo', { title: tarefa, priority: "Baixa" }, {
+      headers: { 'Authorization': `Bearer ${this.props.token}`, 'Content-Type': 'application/json' }
+    })
+      .then((response) => {
+        this.setState({ todos: [...this.state.todos, response.data] });
+        console.log(response);
+      })
+      .catch(console.log);
   }
 
   render() {
@@ -45,7 +56,7 @@ export default class Tasks extends Component {
 
     return (
       <div>
-        {/* TODO: Se possível dar prioridade ao criar tarefa */}
+        {/* TODO: Se possível assinalar a prioridade ao criar tarefa */}
         <AddTask criarTarefa={this.criarTarefa.bind(this)} />
         <section>
           {todos}
