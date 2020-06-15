@@ -47,7 +47,7 @@ export default class Register extends Component {
       password: ""
     });
 
-    console.log(this.state);
+    console.log('reset', this.state);
   }
 
   errorMessage = () => {

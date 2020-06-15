@@ -7,19 +7,32 @@ import Register from '../register';
 import Tasks from '../tasksController';
 
 export default class Routes extends Component {
+
   render() {
+
+    let rota;
+
+    console.log('Routes authenticated', this.props.authenticated);
+
+    if (this.props.authenticated) {
+      rota =
+        <Switch>
+          <Route exact path='/' component={Tasks} />;
+          <Redirect from='*' to='/' />;
+        </Switch>
+    } else {
+      rota = <Switch>
+        <Route exact path='/' component={Welcome} />;
+        <Route path='/login' render={props => (<Login {...this.props} />)} />
+        <Route path='/register' render={props => (<Register {...this.props} />)} />
+        <Route path='/tasks' render={props => (<Tasks {...this.props} />)} />
+        <Redirect from='*' to='/' />
+      </Switch>
+    }
+
     return (
       <div id="dashboard" >
-        <Switch>
-          {/* Se tiver logado só redirecionar para Tasks, caso contrário oferecer as outras urls */}
-          {/* Bloco if */}
-          <Route exact path='/' component={this.props.authenticated ? Tasks : Welcome} />
-
-          {/* Bloco else */}
-          <Route path='/login' component={Login} />
-          <Route path='/register' component={Register} />
-          <Redirect from='*' to='/' />
-        </Switch>
+        {rota}
       </div>
     );
   }

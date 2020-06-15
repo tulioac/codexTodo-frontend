@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import api from '../../services';
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       form: {
         email: "",
@@ -29,10 +30,15 @@ export default class Login extends Component {
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => {
-        localStorage.setItem('token', response.data.token);
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+        this.props.setToken(token);
+
+        console.log("Login realizado com sucesso");
 
       })
       .catch(error => {
+        console.log(error);
         if (error.status !== 200) {
           this.errorMessage();
         }
