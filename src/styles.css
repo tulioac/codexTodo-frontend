@@ -129,15 +129,15 @@ form {
 }
 
 #dashboard {
-  margin: auto auto;
+  margin: 20px auto auto auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  justify-content: space-evenly;
   min-height: 450px;
   position: relative;
   padding: 20px;
+
 }
 
 .caixa {
@@ -161,7 +161,7 @@ form {
 
 .extra {
   position: absolute;
-  top: 600px;
+  top: 460px;
   text-align: center;
 
   left: 50%;
@@ -175,7 +175,7 @@ form {
 
 .errorMessage {
   position: absolute;
-  top: 425px;
+  top: 375px;
   text-align: center;
   color: var(--vermelho);
   font-weight: 500;

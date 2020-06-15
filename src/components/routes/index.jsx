@@ -14,7 +14,7 @@ export default class Routes extends Component {
     if (this.props.authenticated) {
       rota =
         <Switch>
-          <Route exact path='/' render={props => (<Tasks {...this.props} />)} />;
+          <Route exact path='/' render={props => (<Tasks token={this.props.token} />)} />;
           <Redirect from='*' to='/' />;
         </Switch>
     } else {

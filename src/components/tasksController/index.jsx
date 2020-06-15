@@ -6,20 +6,49 @@ import api from '../../services';
 
 export default class Tasks extends Component {
 
-  // componentWillMount() {
-  //   api.get('/todo', )
-  // }
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      todos: []
+    }
+  }
+
+  componentDidMount() {
+    api.get('/todo', {
+      headers: { 'Authorization': `Bearer ${this.props.token}`, 'Content-Type': 'application/json' }
+    })
+      .then(response => {
+        const { todos } = response.data;
+        this.setState({ todos });
+      })
+      .catch(console.log());
+  }
+
+  criarTarefa = (tarefa) => {
+
+  }
 
   render() {
 
+    // TODO: Criar opção para ordenar por prioridade
+
+    // TODO: Criar esqueleto enquanto carrega as tarefas
+
+    // TODO: Deletar tarefa
+
+    // TODO: Editar tarefa -> Ao clicar nos ... do lado direito expandir card mostrando opções para renomear, e alterar prioridade
+
+    const todos = this.state.todos.map(({ title, priority, _id }) => (
+      <Task key={_id} tarefa={title} alta={priority === "Alta"} />
+    ));
 
     return (
       <div>
-        <AddTask />
+        {/* TODO: Se possível dar prioridade ao criar tarefa */}
+        <AddTask criarTarefa={this.criarTarefa.bind(this)} />
         <section>
-          <Task tarefa={"Fazer café da manhã"} alta={true} />
-          <Task tarefa={"Donec tempor nulla elit, sodales condimentum mi maximus sed. Curabitur vel mollis metus. Phasellus elit nulla, semper a nibh in."} alta={true} />
-          <Task tarefa={"Comprar farofa"} alta={false} />
+          {todos}
         </section>
       </div>
     );
