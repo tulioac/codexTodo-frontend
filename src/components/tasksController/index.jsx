@@ -2,8 +2,17 @@ import React, { Component } from 'react';
 import Task from '../task';
 import AddTask from '../addTask';
 
+import api from '../../services';
+
 export default class Tasks extends Component {
+
+  // componentWillMount() {
+  //   api.get('/todo', )
+  // }
+
   render() {
+
+
     return (
       <div>
         <AddTask />

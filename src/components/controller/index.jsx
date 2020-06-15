@@ -5,6 +5,8 @@ import { HashRouter } from 'react-router-dom';
 import Header from '../header';
 import Routes from '../routes';
 
+import api from '../../services';
+
 export default class Controller extends Component {
 
   constructor(props) {
@@ -31,12 +33,24 @@ export default class Controller extends Component {
       this.setState({ authenticated: false });
   }
 
+  logout = () => {
+    console.log('Fazendo logout...');
+
+    const token = sessionStorage.getItem('token');
+
+    api.post('/auth/logout', {}, { headers: { Authorization: `Bearer ${token}` } })
+      .then(console.log)
+      .catch(console.log)
+
+    sessionStorage.removeItem('token');
+    this.setToken(null);
+  }
+
   render() {
     return (
       <HashRouter>
         <div className="App">
-          <Header authenticated={this.state.authenticated} setToken={this.setToken.bind(this)} />
-          {/* TODO: Criar logout */}
+          <Header authenticated={this.state.authenticated} logout={this.logout.bind(this)} />
           <Routes setToken={this.setToken.bind(this)} {...this.state} />
         </div>
       </HashRouter>
