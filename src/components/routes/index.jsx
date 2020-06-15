@@ -9,10 +9,7 @@ import Tasks from '../tasksController';
 export default class Routes extends Component {
 
   render() {
-
     let rota;
-
-    console.log('Routes authenticated', this.props.authenticated);
 
     if (this.props.authenticated) {
       rota =

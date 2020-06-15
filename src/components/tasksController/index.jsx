@@ -4,8 +4,6 @@ import AddTask from '../addTask';
 
 export default class Tasks extends Component {
   render() {
-    console.log('Em tasks');
-
     return (
       <div>
         <AddTask />

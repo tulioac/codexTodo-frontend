@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import api from '../../services';
 
@@ -33,9 +33,6 @@ export default class Login extends Component {
         const token = response.data.token;
         localStorage.setItem('token', token);
         this.props.setToken(token);
-
-        console.log("Login realizado com sucesso");
-
       })
       .catch(error => {
         console.log(error);

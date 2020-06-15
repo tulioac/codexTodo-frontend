@@ -24,8 +24,6 @@ export default class Controller extends Component {
   }
 
   render() {
-    console.log('Controller', this.state);
-
     return (
       <HashRouter>
         <div className="App">
