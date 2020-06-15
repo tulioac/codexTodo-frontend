@@ -10,7 +10,7 @@ export default class Controller extends Component {
   constructor(props) {
     super(props);
 
-    let token = localStorage.getItem('token') || '';
+    let token = sessionStorage.getItem('token') || '';
 
     token ?
       this.state = {
@@ -25,7 +25,8 @@ export default class Controller extends Component {
 
   setToken = (newToken) => {
     this.setState({ token: newToken });
-    this.state.token ?
+
+    newToken ?
       this.setState({ authenticated: true }) :
       this.setState({ authenticated: false });
   }
@@ -34,7 +35,7 @@ export default class Controller extends Component {
     return (
       <HashRouter>
         <div className="App">
-          <Header {...this.state} />
+          <Header authenticated={this.state.authenticated} setToken={this.setToken.bind(this)} />
           {/* TODO: Criar logout */}
           <Routes setToken={this.setToken.bind(this)} {...this.state} />
         </div>
@@ -42,5 +43,3 @@ export default class Controller extends Component {
     );
   }
 }
-
-

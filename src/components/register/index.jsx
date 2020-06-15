@@ -29,7 +29,7 @@ export default class Register extends Component {
     })
       .then(response => {
         const token = response.data.token;
-        localStorage.setItem('token', token);
+        sessionStorage.setItem('token', token);
         this.props.setToken(token);
       })
       .catch(error => {

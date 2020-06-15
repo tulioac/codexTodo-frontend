@@ -8,12 +8,12 @@ header {
   align-items: center;
 }
 
-button#user {
+button#userLogout {
   position: relative;
   padding-right: 40px;
 }
 
-button#user::after {
+button#userLogout::after {
   position: absolute;
   right: 10px;
   display: inline-block;
@@ -24,7 +24,7 @@ button#user::after {
   height: 20px;
 }
 
-button#user:hover::after {
+button#userLogout:hover::after {
   position: absolute;
   display: inline-block;
   content: '';
