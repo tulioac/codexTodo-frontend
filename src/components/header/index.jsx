@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './styles.css';
 
-import { Link } from 'react-router-dom';
+import api from '../../services';
 
 export default class Header extends Component {
 
   logout = () => {
+    console.log('Fazendo logout...');
+
+    const token = sessionStorage.getItem('token');
+
+    api.post('/auth/logout', {}, { headers: { Authorization: `Bearer ${token}` } })
+      .then(console.log)
+      .catch(console.log)
+
     sessionStorage.removeItem('token');
     this.props.setToken(null);
 
