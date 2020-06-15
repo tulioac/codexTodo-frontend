@@ -24,11 +24,13 @@ export default class Register extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    api.post('/auth/register', { ...this.state }, {
+    api.post('/auth/register', { ...this.state.form }, {
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => {
-        localStorage.setItem('token', response.data.token);
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+        this.props.setToken(token);
       })
       .catch(error => {
         if (error.status !== 200) {

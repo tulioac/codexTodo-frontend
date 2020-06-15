@@ -24,9 +24,7 @@ export default class Login extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const { email, password } = this.state.form;
-
-    api.post('/auth/authenticate', { email, password }, {
+    api.post('/auth/authenticate', { ...this.state.form }, {
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => {
@@ -35,7 +33,6 @@ export default class Login extends Component {
         this.props.setToken(token);
       })
       .catch(error => {
-        console.log(error);
         if (error.status !== 200) {
           this.errorMessage();
         }
