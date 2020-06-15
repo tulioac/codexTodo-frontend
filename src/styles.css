@@ -137,6 +137,7 @@ form {
   justify-content: space-evenly;
   min-height: 450px;
   position: relative;
+  padding: 20px;
 }
 
 .caixa {

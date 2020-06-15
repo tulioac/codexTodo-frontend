@@ -38,6 +38,8 @@ export default class Register extends Component {
         }
       });
 
+    // TODO: Colocar loading
+
     // FIXME this.resetSubmit();
   }
 

@@ -37,6 +37,8 @@ export default class Login extends Component {
           this.errorMessage();
         }
       })
+
+    // TODO: Colocar loading
   }
 
   errorMessage = () => {
