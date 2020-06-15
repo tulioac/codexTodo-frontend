@@ -17,16 +17,3 @@ input[type="text"].textLike {
   display: flex;
   align-items: center;
 }
-
-#addTask button {
-  background-color: transparent;
-  padding: 5px 10px;
-  color: var(--primaria);
-  box-shadow: none;
-}
-
-#addTask button:hover {
-  background-color: var(--primaria);
-  color: #fff;
-  box-shadow: var(--sombra);
-}

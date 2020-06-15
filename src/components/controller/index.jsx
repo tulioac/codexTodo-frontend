@@ -10,10 +10,17 @@ export default class Controller extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      authenticated: false,
-      token: ""
-    }
+    let token = localStorage.getItem('token') || '';
+
+    token ?
+      this.state = {
+        authenticated: true,
+        token
+      } :
+      this.state = {
+        authenticated: false,
+        token
+      }
   }
 
   setToken = (newToken) => {
@@ -27,7 +34,8 @@ export default class Controller extends Component {
     return (
       <HashRouter>
         <div className="App">
-          <Header />
+          <Header {...this.state} />
+          {/* TODO: Criar logout */}
           <Routes setToken={this.setToken.bind(this)} {...this.state} />
         </div>
       </HashRouter>
