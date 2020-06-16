@@ -34,9 +34,10 @@ export default props => {
   }
 
   const confirmarEdicao = () => {
-    setEditing(false);
-
-    props.editarTarefa(tarefa, props._id);
+    if (tarefa) {
+      setEditing(false);
+      props.editarTarefa(tarefa, props._id);
+    }
   }
 
   const handleChange = (e) => {
@@ -47,7 +48,7 @@ export default props => {
     <p onClick={editarTarefa}>{props.tarefa}</p>
 
   const textArea =
-    <TextareaAutosize className="textLike" value={tarefa} onChange={handleChange} placeholder="Nova tarefa" onBlur={confirmarEdicao} autoFocus style={{
+    <TextareaAutosize className="textLike" value={tarefa} onChange={handleChange} placeholder="Digite o título da tarefa" onBlur={confirmarEdicao} autoFocus style={{
       backgroundColor: 'transparent',
       border: 'none',
       fontSize: '1rem',
