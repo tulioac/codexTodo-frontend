@@ -52,6 +52,13 @@ export default class Tasks extends Component {
       .catch(console.log);
   }
 
+  editaTarefa = (novaTarefa, _id) => {
+    console.log(`Editando a tarefa ${_id} para: ${novaTarefa}`);
+
+    // TODO: Editar tarefa no servidor
+    // TODO: Editar tarefa no array
+  }
+
   render() {
 
     // TODO: Criar opção para ordenar por prioridade ou por nome
@@ -61,7 +68,7 @@ export default class Tasks extends Component {
     // TODO: Editar tarefa -> Ao clicar nos ... do lado direito expandir card mostrando opções para renomear, e alterar prioridade
 
     const todos = this.state.todos.map(({ title, priority, _id }) => (
-      <Task key={_id} _id={_id} tarefa={title} alta={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} />
+      <Task key={_id} _id={_id} tarefa={title} alta={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editaTarefa={this.editaTarefa.bind(this)} />
     ));
 
     return (
