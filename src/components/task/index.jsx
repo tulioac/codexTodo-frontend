@@ -33,7 +33,6 @@ export default props => {
 
   const handleChange = (e) => {
     setTarefa(e.target.value);
-    console.log(tarefa);
   }
 
   const textArea = <TextareaAutosize className="textLike" value={tarefa} onChange={handleChange} placeholder="Nova tarefa" onBlur={confirmarEdicao} style={{

@@ -52,11 +52,26 @@ export default class Tasks extends Component {
       .catch(console.log);
   }
 
-  editaTarefa = (novaTarefa, _id) => {
-    console.log(`Editando a tarefa ${_id} para: ${novaTarefa}`);
+  editaTarefa = (novoTitulo, _id) => {
+    console.log(`Editando a tarefa ${_id} para: ${novoTitulo}`);
 
-    // TODO: Editar tarefa no servidor
-    // TODO: Editar tarefa no array
+    const index = this.state.todos.findIndex(todo => todo._id === _id);
+
+    const newTodos = this.state.todos;
+
+    const novaTarefa = { ...this.state.todos[index], title: novoTitulo }
+
+    newTodos.splice(index, 1, novaTarefa);
+
+    this.setState({ todos: newTodos });
+
+    // TODO: Passar a prioridade quando for possível alterá-la -> priority: "Baixa / Alta" 
+
+    api.put(`/todo/${_id}`, { title: novoTitulo }, {
+      headers: { 'Authorization': `Bearer ${this.props.token}`, 'Content-Type': 'application/json' }
+    })
+      .then()
+      .catch(console.log);
   }
 
   render() {
