@@ -61,8 +61,8 @@ export default class Login extends Component {
         <h2>Login</h2>
 
         <form onSubmit={this.handleSubmit}>
-          <input type="email" name="email" placeholder="Email" className="caixa" value={this.state.email} onChange={this.handleChange} />
-          <input type="password" name="password" placeholder="Senha" className="caixa" value={this.state.password} onChange={this.handleChange} />
+          <input type="email" name="email" placeholder="Email" className="caixa" value={this.state.email} onChange={this.handleChange} required />
+          <input type="password" name="password" placeholder="Senha" className="caixa" value={this.state.password} onChange={this.handleChange} required />
           <button>Acessar</button>
         </form>
 

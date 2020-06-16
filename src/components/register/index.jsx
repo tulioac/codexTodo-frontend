@@ -74,9 +74,9 @@ export default class Register extends Component {
         <h2>Cadastro</h2>
 
         <form onSubmit={this.handleSubmit}>
-          <input type="text" name="name" placeholder="Nome" className="caixa" value={this.state.name} onChange={this.handleChange} />
-          <input type="email" name="email" placeholder="Email" className="caixa" value={this.state.email} onChange={this.handleChange} />
-          <input type="password" name="password" placeholder="Senha" className="caixa" value={this.state.password} onChange={this.handleChange} />
+          <input type="text" name="name" placeholder="Nome" className="caixa" value={this.state.name} onChange={this.handleChange} required />
+          <input type="email" name="email" placeholder="Email" className="caixa" value={this.state.email} onChange={this.handleChange} required />
+          <input type="password" name="password" placeholder="Senha" className="caixa" value={this.state.password} onChange={this.handleChange} required />
           <button type="submit">Criar Conta</button>
         </form>
 

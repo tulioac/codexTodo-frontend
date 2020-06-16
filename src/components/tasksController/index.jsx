@@ -57,9 +57,7 @@ export default class Tasks extends Component {
     this.setState({ todos: newTodo });
 
     api.delete(`/todo/${id}`, { headers: { 'Authorization': `Bearer ${this.props.token}`, 'Content-Type': 'application/json' } })
-      .then(response => {
-
-      })
+      .then()
       .catch(console.log);
   }
 
@@ -76,13 +74,38 @@ export default class Tasks extends Component {
       todos: newTodos
     });
 
-    // TODO: Passar a prioridade quando for possível alterá-la -> priority: "Baixa / Alta" 
-
     api.put(`/todo/${_id}`, { title: novoTitulo }, {
       headers: { 'Authorization': `Bearer ${this.props.token}`, 'Content-Type': 'application/json' }
     })
       .then()
       .catch(console.log);
+  }
+
+  trocaPrioridade = (novaPrioridade, _id) => {
+
+    const prioridade = novaPrioridade ? "Baixa" : "Alta";
+
+    const index = this.state.todos.findIndex(todo => todo._id === _id);
+
+    const newTodos = this.state.todos;
+
+    const novaTarefa = { ...this.state.todos[index], priority: prioridade }
+
+    console.log('Nova tarefa', novaTarefa);
+
+
+    newTodos.splice(index, 1, novaTarefa);
+
+    this.setState({
+      todos: newTodos
+    });
+
+    api.put(`/todo/${_id}`, { priority: prioridade }, {
+      headers: { 'Authorization': `Bearer ${this.props.token}`, 'Content-Type': 'application/json' }
+    })
+      .then()
+      .catch(console.log);
+
   }
 
   render() {
@@ -91,10 +114,8 @@ export default class Tasks extends Component {
 
     // TODO: Criar esqueleto enquanto carrega as tarefas
 
-    // TODO: Editar tarefa -> Ao clicar nos ... do lado direito expandir card mostrando opções para renomear, e alterar prioridade
-
     const todos = this.state.todos.map(({ title, priority, _id }, index) => (
-      <Task key={index} _id={_id} tarefa={title} alta={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editarTarefa={this.editarTarefa.bind(this)} />
+      <Task key={index} _id={_id} tarefa={title} altaPrioridade={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editarTarefa={this.editarTarefa.bind(this)} trocaPrioridade={this.trocaPrioridade.bind(this)} />
     ));
 
     return (
