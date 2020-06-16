@@ -15,6 +15,7 @@ export default class Tasks extends Component {
   }
 
   componentDidMount() {
+
     api.get('/todo', {
       headers: { 'Authorization': `Bearer ${this.props.token}`, 'Content-Type': 'application/json' }
     })

@@ -20,15 +20,10 @@ export default props => {
     props.trocaPrioridade(altaPrioridade, props._id);
   }
 
-  const prioridadeAlta =
-    <div className="prioridade alta" onClick={trocaPrioridade}>
-      Alta
-      <img src={chevronUp} alt="Chevron para cima" />
-    </div>;
-
-  const prioridadeBaixa =
-    <div className="prioridade baixa" onClick={trocaPrioridade}>
-      Baixa
+  const prioridade =
+    <div className={`prioridade ${altaPrioridade ? "alta" : "baixa"}`} onClick={trocaPrioridade}>
+      {altaPrioridade ? "Alta" : "Baixa"}
+      {altaPrioridade ? <img src={chevronUp} alt="Chevron para cima" /> : ""}
     </div>;
 
   const editButton =
@@ -66,7 +61,7 @@ export default props => {
     <div className="taskBox" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
       <img src={check} alt="Finalizar tarefa" className="check" onClick={() => props.excluirTarefa(props._id)} />
       {editing ? textArea : paragraph}
-      {altaPrioridade ? prioridadeAlta : prioridadeBaixa}
+      {prioridade}
       {hover ? editButton : ""}
     </div >
   );
