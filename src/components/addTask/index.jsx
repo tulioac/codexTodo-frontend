@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import './styles.css';
 
-// TODO: Criar tarefa e passar para o TasksController
-
 export default props => {
 
   const [nomeDaTarefa, setNomeDaTarefa] = useState("");
@@ -11,7 +9,6 @@ export default props => {
     console.log('Criar tarefa:', nomeDaTarefa);
 
     props.criarTarefa(nomeDaTarefa);
-    // TODO: Passar tarefa para TasksController
 
     setNomeDaTarefa("");
   }

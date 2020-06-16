@@ -40,18 +40,28 @@ export default class Tasks extends Component {
       .catch(console.log);
   }
 
+  excluirTarefa = (id) => {
+    console.log('Excluir tarefa de _id', id);
+
+    api.delete(`/todo/${id}`, { headers: { 'Authorization': `Bearer ${this.props.token}`, 'Content-Type': 'application/json' } })
+      .then(response => {
+        const newTodo = this.state.todos.filter(todo => todo._id !== id);
+
+        this.setState({ todos: newTodo });
+      })
+      .catch(console.log);
+  }
+
   render() {
 
     // TODO: Criar opção para ordenar por prioridade ou por nome
 
     // TODO: Criar esqueleto enquanto carrega as tarefas
 
-    // TODO: Deletar tarefa
-
     // TODO: Editar tarefa -> Ao clicar nos ... do lado direito expandir card mostrando opções para renomear, e alterar prioridade
 
     const todos = this.state.todos.map(({ title, priority, _id }) => (
-      <Task key={_id} tarefa={title} alta={priority === "Alta"} />
+      <Task key={_id} _id={_id} tarefa={title} alta={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} />
     ));
 
     return (
