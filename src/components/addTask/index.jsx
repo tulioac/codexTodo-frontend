@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import TextareaAutosize from 'react-autosize-textarea';
 import './styles.css';
 
 export default props => {
@@ -19,7 +20,15 @@ export default props => {
 
   return (
     <div id="addTask">
-      <input type="text" placeholder="Nova tarefa" className="textLike" value={nomeDaTarefa} onChange={handleChange} />
+      <TextareaAutosize className="textLike" value={nomeDaTarefa} onChange={handleChange} placeholder="Nova tarefa" style={{
+        backgroundColor: 'transparent',
+        border: 'none',
+        padding: '10px',
+        fontSize: '1rem',
+        cursor: 'pointer',
+        minWidth: '275px',
+        resize: 'none',
+      }} />
       <button className="vazio" onClick={criarTarefa}>
         Criar
     </button>

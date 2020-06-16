@@ -1,13 +1,3 @@
-input[type="text"].textLike {
-  background-color: transparent;
-  border: none;
-  padding: 10px;
-  font-size: 1rem !important; 
-  cursor: pointer;
-  min-width: 200px !important;
-}
-
-
 .textLike::placeholder{
   font-size: 1rem !important; 
   font-weight: 300;

@@ -7,8 +7,8 @@
   --cinza: #5E6070;
   --cinza-claro: #9597A1;
   --claro: #F6F9FC; 
-  --sombra: 0px 4px 4px rgba(0, 0, 0, 0.05);
-  --icones: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  --sombra: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  --icones: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
   font-size: 20px;
   color: var(--escuro);

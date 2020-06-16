@@ -4,15 +4,17 @@
   border-radius: 15px;
   box-shadow: var(--sombra);
   width: 310px;
-  padding: 15px 20px 15px 30px;
+  padding: 15px 35px 15px 30px;
   position: relative;
   margin: 30px 0;
+  margin-right: 50px;
 }
 
 .taskBox p {
   color: var(--escuro);
   font-weight: 500;
   margin-bottom: 0 !important;
+  word-wrap: break-word;
 }
 
 .taskBox img.check{
@@ -25,7 +27,22 @@
   padding: 3px;
 }
 
-.taskBox img:hover {
+.taskBox img.edit{
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  top: 12px;
+  padding: 3px;
+  box-shadow: none;
+
+  transition: all 0.5s ease-in-out;
+}
+
+.taskBox img.edit:hover{
+  filter: brightness(0.5);
+}
+
+.taskBox img.check:hover {
   box-shadow: var(--icones);
 }
 
@@ -38,6 +55,6 @@
   border-radius: 5px;
   display: inline;
   position: absolute;
-  top: -12px;
+  top: -18px;
   right: -20px;
 }
