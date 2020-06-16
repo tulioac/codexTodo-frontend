@@ -124,6 +124,7 @@ export default class Tasks extends Component {
         {/* TODO: Se possível assinalar a prioridade ao criar tarefa */}
         <AddTask criarTarefa={this.criarTarefa.bind(this)} />
         <section>
+          {/* TODO: Colocar mensagem para caso não tenha nenhuma task */}
           {todos}
         </section>
       </div>

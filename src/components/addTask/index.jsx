@@ -7,9 +7,10 @@ export default props => {
   const [nomeDaTarefa, setNomeDaTarefa] = useState("");
 
   const criarTarefa = () => {
-    props.criarTarefa(nomeDaTarefa);
-
-    setNomeDaTarefa("");
+    if (nomeDaTarefa) {
+      props.criarTarefa(nomeDaTarefa);
+      setNomeDaTarefa("");
+    }
   }
 
   const handleChange = (e) => {
@@ -18,7 +19,7 @@ export default props => {
 
   return (
     <div id="addTask">
-      <TextareaAutosize className="textLike" value={nomeDaTarefa} onChange={handleChange} placeholder="Nova tarefa" style={{
+      <TextareaAutosize className="textLike" value={nomeDaTarefa} onChange={handleChange} placeholder="Nova tarefa" required style={{
         backgroundColor: 'transparent',
         border: 'none',
         padding: '10px',
