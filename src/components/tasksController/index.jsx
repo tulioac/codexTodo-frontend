@@ -24,14 +24,10 @@ export default class Tasks extends Component {
 
         console.log(this.state);
       })
-      .catch(console.log());
+      .catch(console.log);
   }
 
   criarTarefa = (novoTitulo) => {
-    console.log('Tarefa recebida', novoTitulo);
-
-    // TODO: Criar tarefa básica para render e depois adicionar com informações do servidor 
-
     let novaTarefa = { title: novoTitulo, priority: "Baixa" };
 
     this.setState({ todos: [...this.state.todos, novaTarefa] })
@@ -97,8 +93,8 @@ export default class Tasks extends Component {
 
     // TODO: Editar tarefa -> Ao clicar nos ... do lado direito expandir card mostrando opções para renomear, e alterar prioridade
 
-    const todos = this.state.todos.map(({ title, priority, _id }) => (
-      <Task key={_id} _id={_id} tarefa={title} alta={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editarTarefa={this.editarTarefa.bind(this)} />
+    const todos = this.state.todos.map(({ title, priority, _id }, index) => (
+      <Task key={index} _id={_id} tarefa={title} alta={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editarTarefa={this.editarTarefa.bind(this)} />
     ));
 
     return (

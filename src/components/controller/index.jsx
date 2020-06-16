@@ -34,8 +34,6 @@ export default class Controller extends Component {
   }
 
   logout = () => {
-    console.log('Fazendo logout...');
-
     const token = sessionStorage.getItem('token');
 
     api.post('/auth/logout', {}, { headers: { Authorization: `Bearer ${token}` } })

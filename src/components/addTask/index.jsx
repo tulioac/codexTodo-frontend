@@ -7,8 +7,6 @@ export default props => {
   const [nomeDaTarefa, setNomeDaTarefa] = useState("");
 
   const criarTarefa = () => {
-    console.log('Criar tarefa:', nomeDaTarefa);
-
     props.criarTarefa(nomeDaTarefa);
 
     setNomeDaTarefa("");
