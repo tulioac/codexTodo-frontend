@@ -27,34 +27,47 @@ export default class Tasks extends Component {
       .catch(console.log());
   }
 
-  criarTarefa = (tarefa) => {
-    console.log('Tarefa recebida', tarefa);
+  criarTarefa = (novoTitulo) => {
+    console.log('Tarefa recebida', novoTitulo);
 
-    api.post('/todo', { title: tarefa, priority: "Baixa" }, {
+    // TODO: Criar tarefa básica para render e depois adicionar com informações do servidor 
+
+    let novaTarefa = { title: novoTitulo, priority: "Baixa" };
+
+    this.setState({ todos: [...this.state.todos, novaTarefa] })
+
+    api.post('/todo', { title: novoTitulo, priority: "Baixa" }, {
       headers: { 'Authorization': `Bearer ${this.props.token}`, 'Content-Type': 'application/json' }
     })
       .then((response) => {
-        this.setState({ todos: [...this.state.todos, response.data] });
-        console.log(response);
+        const index = this.state.todos.indexOf(novaTarefa);
+
+        const newTodos = this.state.todos;
+
+        novaTarefa = { ...response.data };
+
+        newTodos.splice(index, 1, novaTarefa);
+
+        this.setState({
+          todos: newTodos
+        });
       })
       .catch(console.log);
   }
 
   excluirTarefa = (id) => {
-    console.log('Excluir tarefa de _id', id);
+    const newTodo = this.state.todos.filter(todo => todo._id !== id);
+
+    this.setState({ todos: newTodo });
 
     api.delete(`/todo/${id}`, { headers: { 'Authorization': `Bearer ${this.props.token}`, 'Content-Type': 'application/json' } })
       .then(response => {
-        const newTodo = this.state.todos.filter(todo => todo._id !== id);
 
-        this.setState({ todos: newTodo });
       })
       .catch(console.log);
   }
 
-  editaTarefa = (novoTitulo, _id) => {
-    console.log(`Editando a tarefa ${_id} para: ${novoTitulo}`);
-
+  editarTarefa = (novoTitulo, _id) => {
     const index = this.state.todos.findIndex(todo => todo._id === _id);
 
     const newTodos = this.state.todos;
@@ -63,7 +76,9 @@ export default class Tasks extends Component {
 
     newTodos.splice(index, 1, novaTarefa);
 
-    this.setState({ todos: newTodos });
+    this.setState({
+      todos: newTodos
+    });
 
     // TODO: Passar a prioridade quando for possível alterá-la -> priority: "Baixa / Alta" 
 
@@ -83,7 +98,7 @@ export default class Tasks extends Component {
     // TODO: Editar tarefa -> Ao clicar nos ... do lado direito expandir card mostrando opções para renomear, e alterar prioridade
 
     const todos = this.state.todos.map(({ title, priority, _id }) => (
-      <Task key={_id} _id={_id} tarefa={title} alta={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editaTarefa={this.editaTarefa.bind(this)} />
+      <Task key={_id} _id={_id} tarefa={title} alta={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editarTarefa={this.editarTarefa.bind(this)} />
     ));
 
     return (

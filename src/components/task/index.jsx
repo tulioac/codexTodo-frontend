@@ -22,7 +22,7 @@ export default props => {
   const confirmarEdicao = () => {
     setEditing(false);
 
-    props.editaTarefa(tarefa, props._id);
+    props.editarTarefa(tarefa, props._id);
   }
 
   const editButton = <img src={edit} alt={"Editar tarefa"} className="edit" onClick={editarTarefa} />;
