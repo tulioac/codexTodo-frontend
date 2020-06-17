@@ -7,7 +7,7 @@ export default props => {
   const [criterio, setCriterio] = useState(props.criterios[index]);
 
   const trocarCriterio = () => {
-    const newIndex = (index + 1) % props.criterios.length;
+    const newIndex = (++index) % props.criterios.length;
 
     props.trocarCriterio(props.criterios[newIndex]);
 

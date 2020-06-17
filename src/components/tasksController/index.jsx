@@ -129,7 +129,27 @@ export default class Tasks extends Component {
   }
 
   trocarCriterio = (novoCriterio) => {
-    console.log('Trocar para:', novoCriterio);
+    this.renderOrdenado(novoCriterio);
+  }
+
+  renderOrdenado = (criterio) => {
+    console.log('Ordenando por:', criterio);
+
+    // TODO: Verificar qual o criterio de ordenação
+
+    const comparaPrioridade = ({ priority: prioridadeA }, { priority: prioridadeB }) => {
+      if (prioridadeA < prioridadeB)
+        return -1;
+      if (prioridadeA > prioridadeB)
+        return 1;
+      return 0;
+    }
+
+    // TODO: Retonar dependendo do critério de ordenação
+
+    const ordenado = this.state.todos.sort(comparaPrioridade);
+
+    console.log(ordenado);
   }
 
   render() {
