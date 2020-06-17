@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import LoadingIndicator from '../loadingIndicator';
+
 import api from '../../services';
 
 export default class Register extends Component {
@@ -11,7 +13,8 @@ export default class Register extends Component {
         name: "",
         email: "",
         password: ""
-      }
+      },
+      loading: false
     }
   }
 
@@ -29,6 +32,8 @@ export default class Register extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
+    this.setState({ loading: true });
+
     api.post('/auth/register', { ...this.state.form }, {
       headers: { 'Content-Type': 'application/json' }
     })
@@ -41,7 +46,10 @@ export default class Register extends Component {
         if (error.status !== 200) {
           this.errorMessage();
         }
-      });
+      })
+      .finally(() => {
+        this.setState({ loading: false });
+      });;
 
     // TODO: Colocar loading
 
@@ -74,6 +82,7 @@ export default class Register extends Component {
   }
 
   render() {
+    const loading = this.state.loading ? <LoadingIndicator /> : "";
     return (
       <div>
         <h2>Cadastro</h2>
@@ -84,7 +93,7 @@ export default class Register extends Component {
           <input type="password" name="password" placeholder="Senha" className="caixa" value={this.state.password} onChange={this.handleChange} required />
           <button type="submit">Criar Conta</button>
         </form>
-
+        {loading}
         <p className="errorMessage"></p>
 
         <div className="extra">

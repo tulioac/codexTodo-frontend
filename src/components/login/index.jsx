@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import api from '../../services';
 
+import LoadingIndicator from '../loadingIndicator';
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -11,7 +13,8 @@ export default class Login extends Component {
       form: {
         email: "",
         password: ""
-      }
+      },
+      loading: false
     }
   }
 
@@ -23,6 +26,8 @@ export default class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+
+    this.setState({ loading: true });
 
     api.post('/auth/authenticate', { ...this.state.form }, {
       headers: { 'Content-Type': 'application/json' }
@@ -37,6 +42,9 @@ export default class Login extends Component {
           this.errorMessage();
         }
       })
+      .finally(() => {
+        this.setState({ loading: false });
+      });
 
     // TODO: Colocar loading
   }
@@ -56,15 +64,18 @@ export default class Login extends Component {
   }
 
   render() {
+    const loading = this.state.loading ? <LoadingIndicator /> : "";
+
     return (
       <div>
         <h2>Login</h2>
-
         <form onSubmit={this.handleSubmit}>
           <input type="email" name="email" placeholder="Email" className="caixa" value={this.state.email} onChange={this.handleChange} required />
           <input type="password" name="password" placeholder="Senha" className="caixa" value={this.state.password} onChange={this.handleChange} required />
           <button>Acessar</button>
         </form>
+
+        {loading}
 
         <p className="errorMessage">Erro ao acessar sua conta. Verifique suas credencias.</p>
 

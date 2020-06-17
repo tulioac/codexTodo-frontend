@@ -173,7 +173,7 @@ form {
 
 .errorMessage {
   position: absolute;
-  top: 375px;
+  top: 360px;
   text-align: center;
   color: var(--vermelho);
   font-weight: 500;
@@ -210,4 +210,15 @@ button.vazio:hover {
 
 #tasksDash {
   min-width: 360px;
+}
+
+#welcome {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#welcome img {
+  margin: 30px auto;
+  width: 300px;
 }
