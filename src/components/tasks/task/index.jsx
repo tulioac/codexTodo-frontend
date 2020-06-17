@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import TextareaAutosize from 'react-autosize-textarea';
 
-import check from '../../svg/check.svg';
-import edit from '../../svg/edit.svg';
-import chevronUp from '../../svg/up.svg';
+import check from '../../../svg/check.svg';
+import edit from '../../../svg/edit.svg';
+import chevronUp from '../../../svg/up.svg';
 
 import './styles.css';
 

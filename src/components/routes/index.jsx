@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 
 import Welcome from '../welcome';
-import Login from '../login';
-import Register from '../register';
-import Tasks from '../tasksController';
+import Login from '../forms/login';
+import Register from '../forms/register';
+import Tasks from '../tasks/tasksController';
 
 export default class Routes extends Component {
 

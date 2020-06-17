@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import api from '../../services';
+import LoadingIndicator from '../../loadingIndicator';
 
-import LoadingIndicator from '../loadingIndicator';
+import api from '../../../services';
 
-export default class Login extends Component {
+export default class Register extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       form: {
+        name: "",
         email: "",
         password: ""
       },
@@ -21,7 +21,12 @@ export default class Login extends Component {
   handleChange = e => {
     const { name, value } = e.target;
 
-    this.setState({ form: { ...this.state.form, [name]: value } });
+    this.setState({
+      form: {
+        ...this.state.form,
+        [name]: value
+      }
+    });
   }
 
   handleSubmit = e => {
@@ -29,11 +34,11 @@ export default class Login extends Component {
 
     this.setState({ loading: true });
 
-    api.post('/auth/authenticate', { ...this.state.form }, {
+    api.post('/auth/register', { ...this.state.form }, {
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => {
-        const token = response.data.token;
+        const { token } = response.data;
         sessionStorage.setItem('token', token);
         this.props.setToken(token);
       })
@@ -44,9 +49,7 @@ export default class Login extends Component {
       })
       .finally(() => {
         this.setState({ loading: false });
-      });
-
-    // TODO: Colocar loading
+      });;
   }
 
   errorMessage = () => {
@@ -55,7 +58,7 @@ export default class Login extends Component {
     p.style.opacity = '1';
     p.style.visibility = 'visible';
 
-    p.innerHTML = 'Erro ao acessar sua conta. Verifique suas credencias.';
+    p.innerHTML = 'Erro ao cadastrar sua conta. Tente um email diferente.';
 
     setTimeout(() => {
       p.style.opacity = '0';
@@ -65,25 +68,24 @@ export default class Login extends Component {
 
   render() {
     const loading = this.state.loading ? <LoadingIndicator /> : "";
-
     return (
       <div>
-        <h2>Login</h2>
+        <h2>Cadastro</h2>
+
         <form onSubmit={this.handleSubmit}>
+          <input type="text" name="name" placeholder="Nome" className="caixa" value={this.state.name} onChange={this.handleChange} required />
           <input type="email" name="email" placeholder="Email" className="caixa" value={this.state.email} onChange={this.handleChange} required />
           <input type="password" name="password" placeholder="Senha" className="caixa" value={this.state.password} onChange={this.handleChange} required />
-          <button>Acessar</button>
+          <button type="submit">Criar Conta</button>
         </form>
-
         {loading}
-
-        <p className="errorMessage">Erro ao acessar sua conta. Verifique suas credencias.</p>
+        <p className="errorMessage"></p>
 
         <div className="extra">
-          <p>Não possui conta?</p>
-          <Link to='/register'>Cadastre-se</Link>
+          <p>Já possui conta?</p>
+          <Link to='/login'>Acesse-a</Link>
         </div>
       </div >
     );
   }
-} 
+}

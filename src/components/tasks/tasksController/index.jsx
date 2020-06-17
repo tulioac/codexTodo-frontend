@@ -5,7 +5,7 @@ import AddTask from '../addTask';
 import OrdernarPor from '../ordenarPor';
 import Skeleton from '../skeleton';
 
-import api from '../../services';
+import api from '../../../services';
 
 export default class Tasks extends Component {
 
@@ -31,8 +31,6 @@ export default class Tasks extends Component {
       .then(response => {
         const { todos } = response.data;
         this.setState({ todos });
-
-        console.log(this.state);
       })
       .catch(console.log)
       .finally(() => this.setState({ loading: false }));
@@ -136,8 +134,6 @@ export default class Tasks extends Component {
   renderOrdenado = () => {
     const { criterio } = this.state;
 
-    console.log('Ordenando por:', criterio);
-
     let tarefasOrdenadas;
 
     if (criterio === "Prioridade") {
@@ -176,10 +172,8 @@ export default class Tasks extends Component {
     return (
       <div id="tasksDash">
         <OrdernarPor criterios={this.state.criterios} trocarCriterio={this.trocarCriterio.bind(this)} />
-        {/* TODO: Se possível assinalar a prioridade ao criar tarefa */}
         <AddTask criarTarefa={this.criarTarefa.bind(this)} />
         <section>
-          {/* TODO: Colocar mensagem para caso não tenha nenhuma task */}
           {tasks}
         </section>
       </div>

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import LoadingIndicator from '../loadingIndicator';
+import api from '../../../services';
 
-import api from '../../services';
+import LoadingIndicator from '../../loadingIndicator';
 
-export default class Register extends Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       form: {
-        name: "",
         email: "",
         password: ""
       },
@@ -21,12 +21,7 @@ export default class Register extends Component {
   handleChange = e => {
     const { name, value } = e.target;
 
-    this.setState({
-      form: {
-        ...this.state.form,
-        [name]: value
-      }
-    });
+    this.setState({ form: { ...this.state.form, [name]: value } });
   }
 
   handleSubmit = e => {
@@ -34,11 +29,11 @@ export default class Register extends Component {
 
     this.setState({ loading: true });
 
-    api.post('/auth/register', { ...this.state.form }, {
+    api.post('/auth/authenticate', { ...this.state.form }, {
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => {
-        const { token } = response.data;
+        const token = response.data.token;
         sessionStorage.setItem('token', token);
         this.props.setToken(token);
       })
@@ -49,22 +44,7 @@ export default class Register extends Component {
       })
       .finally(() => {
         this.setState({ loading: false });
-      });;
-
-    // TODO: Colocar loading
-
-    // FIXME this.resetSubmit();
-  }
-
-  resetSubmit = () => {
-    // FIXME
-    this.setState = ({
-      name: "",
-      email: "",
-      password: ""
-    });
-
-    console.log('reset', this.state);
+      });
   }
 
   errorMessage = () => {
@@ -73,7 +53,7 @@ export default class Register extends Component {
     p.style.opacity = '1';
     p.style.visibility = 'visible';
 
-    p.innerHTML = 'Erro ao cadastrar sua conta. Tente um email diferente.';
+    p.innerHTML = 'Erro ao acessar sua conta. Verifique suas credencias.';
 
     setTimeout(() => {
       p.style.opacity = '0';
@@ -83,24 +63,25 @@ export default class Register extends Component {
 
   render() {
     const loading = this.state.loading ? <LoadingIndicator /> : "";
+
     return (
       <div>
-        <h2>Cadastro</h2>
-
+        <h2>Login</h2>
         <form onSubmit={this.handleSubmit}>
-          <input type="text" name="name" placeholder="Nome" className="caixa" value={this.state.name} onChange={this.handleChange} required />
           <input type="email" name="email" placeholder="Email" className="caixa" value={this.state.email} onChange={this.handleChange} required />
           <input type="password" name="password" placeholder="Senha" className="caixa" value={this.state.password} onChange={this.handleChange} required />
-          <button type="submit">Criar Conta</button>
+          <button>Acessar</button>
         </form>
+
         {loading}
-        <p className="errorMessage"></p>
+
+        <p className="errorMessage">Erro ao acessar sua conta. Verifique suas credencias.</p>
 
         <div className="extra">
-          <p>Já possui conta?</p>
-          <Link to='/login'>Acesse-a</Link>
+          <p>Não possui conta?</p>
+          <Link to='/register'>Cadastre-se</Link>
         </div>
       </div >
     );
   }
-}
+} 
