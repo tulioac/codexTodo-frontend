@@ -17,7 +17,10 @@ export default class Tasks extends Component {
   componentDidMount() {
 
     api.get('/todo', {
-      headers: { 'Authorization': `Bearer ${this.props.token}`, 'Content-Type': 'application/json' }
+      headers: {
+        'Authorization': `Bearer ${this.props.token}`,
+        'Content-Type': 'application/json'
+      }
     })
       .then(response => {
         const { todos } = response.data;
@@ -33,8 +36,14 @@ export default class Tasks extends Component {
 
     this.setState({ todos: [...this.state.todos, novaTarefa] })
 
-    api.post('/todo', { title: novoTitulo, priority: "Baixa" }, {
-      headers: { 'Authorization': `Bearer ${this.props.token}`, 'Content-Type': 'application/json' }
+    api.post('/todo', {
+      title: novoTitulo,
+      priority: "Baixa"
+    }, {
+      headers: {
+        'Authorization': `Bearer ${this.props.token}`,
+        'Content-Type': 'application/json'
+      }
     })
       .then((response) => {
         const index = this.state.todos.indexOf(novaTarefa);
@@ -45,9 +54,7 @@ export default class Tasks extends Component {
 
         newTodos.splice(index, 1, novaTarefa);
 
-        this.setState({
-          todos: newTodos
-        });
+        this.setState({ todos: newTodos });
       })
       .catch(console.log);
   }
@@ -57,7 +64,12 @@ export default class Tasks extends Component {
 
     this.setState({ todos: newTodo });
 
-    api.delete(`/todo/${id}`, { headers: { 'Authorization': `Bearer ${this.props.token}`, 'Content-Type': 'application/json' } })
+    api.delete(`/todo/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${this.props.token}`,
+        'Content-Type': 'application/json'
+      }
+    })
       .then()
       .catch(console.log);
   }
@@ -75,8 +87,13 @@ export default class Tasks extends Component {
       todos: newTodos
     });
 
-    api.put(`/todo/${_id}`, { title: novoTitulo }, {
-      headers: { 'Authorization': `Bearer ${this.props.token}`, 'Content-Type': 'application/json' }
+    api.put(`/todo/${_id}`, {
+      title: novoTitulo
+    }, {
+      headers: {
+        'Authorization': `Bearer ${this.props.token}`,
+        'Content-Type': 'application/json'
+      }
     })
       .then()
       .catch(console.log);
@@ -115,9 +132,10 @@ export default class Tasks extends Component {
 
     // TODO: Criar esqueleto enquanto carrega as tarefas
 
-    const todos = this.state.todos.map(({ title, priority, _id }, index) => (
-      <Task key={index} _id={_id} tarefa={title} altaPrioridade={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editarTarefa={this.editarTarefa.bind(this)} trocaPrioridade={this.trocaPrioridade.bind(this)} />
-    ));
+    const todos =
+      this.state.todos.map(({ title, priority, _id }, index) => (
+        <Task key={index} _id={_id} tarefa={title} altaPrioridade={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editarTarefa={this.editarTarefa.bind(this)} trocaPrioridade={this.trocaPrioridade.bind(this)} />
+      ));
 
     return (
       <div>

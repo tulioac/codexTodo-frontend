@@ -18,7 +18,12 @@ export default class Register extends Component {
   handleChange = e => {
     const { name, value } = e.target;
 
-    this.setState({ form: { ...this.state.form, [name]: value } });
+    this.setState({
+      form: {
+        ...this.state.form,
+        [name]: value
+      }
+    });
   }
 
   handleSubmit = e => {
@@ -28,7 +33,7 @@ export default class Register extends Component {
       headers: { 'Content-Type': 'application/json' }
     })
       .then(response => {
-        const token = response.data.token;
+        const { token } = response.data;
         sessionStorage.setItem('token', token);
         this.props.setToken(token);
       })
