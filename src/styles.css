@@ -119,8 +119,6 @@ button:hover {
   background-color: var(--primaria-escura);
 }
 
-
-
 form {
   display: flex;
   flex-direction: column;
@@ -200,6 +198,8 @@ button.vazio {
   color: var(--primaria);
   box-shadow: none;
   font-weight: 500;
+
+  transition: all 0.1s ease-in-out;
 }
 
 button.vazio:hover {

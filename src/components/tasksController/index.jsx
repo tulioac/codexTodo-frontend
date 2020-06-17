@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Task from '../task';
 import AddTask from '../addTask';
+import OrdernarPor from '../ordenarPor';
 
 import api from '../../services';
 
@@ -10,7 +11,8 @@ export default class Tasks extends Component {
     super(props);
 
     this.state = {
-      todos: []
+      todos: [],
+      criterios: ["Prioridade", "Mais Nova", "Mais Antiga"]
     }
   }
 
@@ -126,6 +128,10 @@ export default class Tasks extends Component {
 
   }
 
+  trocarCriterio = (novoCriterio) => {
+    console.log('Trocar para:', novoCriterio);
+  }
+
   render() {
 
     // TODO: Criar opção para ordenar por prioridade ou por nome
@@ -139,6 +145,7 @@ export default class Tasks extends Component {
 
     return (
       <div>
+        <OrdernarPor criterios={this.state.criterios} trocarCriterio={this.trocarCriterio.bind(this)} />
         {/* TODO: Se possível assinalar a prioridade ao criar tarefa */}
         <AddTask criarTarefa={this.criarTarefa.bind(this)} />
         <section>

@@ -1,0 +1,8 @@
+#orderBy {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#orderBy button {
+  width: 140px;
+}
