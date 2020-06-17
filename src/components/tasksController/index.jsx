@@ -12,8 +12,13 @@ export default class Tasks extends Component {
 
     this.state = {
       todos: [],
-      criterios: ["Prioridade", "Mais Nova", "Mais Antiga"]
+      criterios: ["Mais Antiga", "Mais Nova", "Prioridade"],
+      criterioAtual: "Prioridade"
     }
+  }
+
+  componentWillUpdate() {
+    this.renderOrdenado();
   }
 
   componentDidMount() {
@@ -111,9 +116,6 @@ export default class Tasks extends Component {
 
     const novaTarefa = { ...this.state.todos[index], priority: prioridade }
 
-    console.log('Nova tarefa', novaTarefa);
-
-
     newTodos.splice(index, 1, novaTarefa);
 
     this.setState({
@@ -125,43 +127,61 @@ export default class Tasks extends Component {
     })
       .then()
       .catch(console.log);
-
   }
 
   trocarCriterio = (novoCriterio) => {
-    this.renderOrdenado(novoCriterio);
+    this.setState({ criterio: novoCriterio })
   }
 
-  renderOrdenado = (criterio) => {
+  renderOrdenado = () => {
+    const { criterio } = this.state;
+
     console.log('Ordenando por:', criterio);
 
-    // TODO: Verificar qual o criterio de ordenação
+    let tarefasOrdenadas;
 
-    const comparaPrioridade = ({ priority: prioridadeA }, { priority: prioridadeB }) => {
-      if (prioridadeA < prioridadeB)
-        return -1;
-      if (prioridadeA > prioridadeB)
-        return 1;
-      return 0;
+    if (criterio === "Prioridade") {
+      const comparaPrioridade = ({ priority: prioridadeA }, { priority: prioridadeB }) => {
+        if (prioridadeA < prioridadeB)
+          return -1;
+        if (prioridadeA > prioridadeB)
+          return 1;
+        return 0;
+      }
+
+      tarefasOrdenadas = [...this.state.todos].sort(comparaPrioridade);
+    } else if (criterio === "Mais Nova") {
+      tarefasOrdenadas = [...this.state.todos].reverse();
+    } else {
+      tarefasOrdenadas = [...this.state.todos];
     }
 
-    // TODO: Retonar dependendo do critério de ordenação
+    const tarefas = tarefasOrdenadas.map(({ title, priority, _id }, index) => (
+      <Task key={index} _id={_id} tarefa={title} altaPrioridade={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editarTarefa={this.editarTarefa.bind(this)} trocaPrioridade={this.trocaPrioridade.bind(this)} />
+    ));
 
-    const ordenado = this.state.todos.sort(comparaPrioridade);
+    console.log(tarefasOrdenadas);
 
-    console.log(ordenado);
+    return tarefas;
   }
 
   render() {
+
+    // https://dev.to/ramonak/react-how-to-dynamically-sort-an-array-of-objects-using-the-dropdown-with-react-hooks-195p
+
+    // https://medium.com/@josephharwood_62087/searching-and-sorting-in-react-3365a4499d3b
 
     // TODO: Criar opção para ordenar por prioridade ou por nome
 
     // TODO: Criar esqueleto enquanto carrega as tarefas
 
-    const todos =
-      this.state.todos.map(({ title, priority, _id }, index) => (
-        <Task key={index} _id={_id} tarefa={title} altaPrioridade={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editarTarefa={this.editarTarefa.bind(this)} trocaPrioridade={this.trocaPrioridade.bind(this)} />
-      ));
+    const todosOrdenados = this.renderOrdenado();
+
+    console.log(todosOrdenados);
+
+    // const tasksOrdenadas = todosOrdenados.map(({ title, priority, _id }, index) => (
+    //   <Task key={index} _id={_id} tarefa={title} altaPrioridade={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editarTarefa={this.editarTarefa.bind(this)} trocaPrioridade={this.trocaPrioridade.bind(this)} />
+    // ));
 
     return (
       <div>
@@ -170,7 +190,7 @@ export default class Tasks extends Component {
         <AddTask criarTarefa={this.criarTarefa.bind(this)} />
         <section>
           {/* TODO: Colocar mensagem para caso não tenha nenhuma task */}
-          {todos}
+          {todosOrdenados}
         </section>
       </div>
     );
