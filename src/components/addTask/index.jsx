@@ -30,7 +30,7 @@ export default props => {
       }} />
       <button className="vazio" onClick={criarTarefa}>
         Criar
-    </button>
-    </div>
+      </button>
+    </div >
   );
 }

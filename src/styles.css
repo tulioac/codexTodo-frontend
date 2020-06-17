@@ -207,3 +207,7 @@ button.vazio:hover {
   color: #fff;
   box-shadow: var(--sombra);
 }
+
+#tasksDash {
+  min-width: 360px;
+}

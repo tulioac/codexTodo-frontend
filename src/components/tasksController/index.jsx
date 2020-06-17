@@ -17,10 +17,6 @@ export default class Tasks extends Component {
     }
   }
 
-  componentWillUpdate() {
-    this.renderOrdenado();
-  }
-
   componentDidMount() {
 
     api.get('/todo', {
@@ -156,22 +152,10 @@ export default class Tasks extends Component {
       tarefasOrdenadas = [...this.state.todos];
     }
 
-    const tarefas = tarefasOrdenadas.map(({ title, priority, _id }, index) => (
-      <Task key={index} _id={_id} tarefa={title} altaPrioridade={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editarTarefa={this.editarTarefa.bind(this)} trocaPrioridade={this.trocaPrioridade.bind(this)} />
-    ));
-
-    console.log(tarefasOrdenadas);
-
-    return tarefas;
+    return tarefasOrdenadas;
   }
 
   render() {
-
-    // https://dev.to/ramonak/react-how-to-dynamically-sort-an-array-of-objects-using-the-dropdown-with-react-hooks-195p
-
-    // https://medium.com/@josephharwood_62087/searching-and-sorting-in-react-3365a4499d3b
-
-    // TODO: Criar opção para ordenar por prioridade ou por nome
 
     // TODO: Criar esqueleto enquanto carrega as tarefas
 
@@ -179,18 +163,18 @@ export default class Tasks extends Component {
 
     console.log(todosOrdenados);
 
-    // const tasksOrdenadas = todosOrdenados.map(({ title, priority, _id }, index) => (
-    //   <Task key={index} _id={_id} tarefa={title} altaPrioridade={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editarTarefa={this.editarTarefa.bind(this)} trocaPrioridade={this.trocaPrioridade.bind(this)} />
-    // ));
+    const tasksOrdenadas = todosOrdenados.map(({ title, priority, _id }, index) => (
+      <Task key={_id} _id={_id} tarefa={title} altaPrioridade={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editarTarefa={this.editarTarefa.bind(this)} trocaPrioridade={this.trocaPrioridade.bind(this)} />
+    ));
 
     return (
-      <div>
+      <div id="tasksDash">
         <OrdernarPor criterios={this.state.criterios} trocarCriterio={this.trocarCriterio.bind(this)} />
         {/* TODO: Se possível assinalar a prioridade ao criar tarefa */}
         <AddTask criarTarefa={this.criarTarefa.bind(this)} />
         <section>
           {/* TODO: Colocar mensagem para caso não tenha nenhuma task */}
-          {todosOrdenados}
+          {tasksOrdenadas}
         </section>
       </div>
     );
