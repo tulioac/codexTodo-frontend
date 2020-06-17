@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+
 import Task from '../task';
 import AddTask from '../addTask';
 import OrdernarPor from '../ordenarPor';
+import Skeleton from '../skeleton';
 
 import api from '../../services';
 
@@ -13,7 +15,8 @@ export default class Tasks extends Component {
     this.state = {
       todos: [],
       criterios: ["Mais Antiga", "Mais Nova", "Prioridade"],
-      criterioAtual: "Prioridade"
+      criterioAtual: "Prioridade",
+      loading: true
     }
   }
 
@@ -31,7 +34,8 @@ export default class Tasks extends Component {
 
         console.log(this.state);
       })
-      .catch(console.log);
+      .catch(console.log)
+      .finally(() => this.setState({ loading: false }));
   }
 
   criarTarefa = (novoTitulo) => {
@@ -157,15 +161,17 @@ export default class Tasks extends Component {
 
   render() {
 
-    // TODO: Criar esqueleto enquanto carrega as tarefas
-
-    const todosOrdenados = this.renderOrdenado();
-
-    console.log(todosOrdenados);
-
-    const tasksOrdenadas = todosOrdenados.map(({ title, priority, _id }, index) => (
+    const tasksOrdenadas = this.renderOrdenado().map(({ title, priority, _id }, index) => (
       <Task key={_id} _id={_id} tarefa={title} altaPrioridade={priority === "Alta"} excluirTarefa={() => this.excluirTarefa(_id)} editarTarefa={this.editarTarefa.bind(this)} trocaPrioridade={this.trocaPrioridade.bind(this)} />
     ));
+
+    const skeleton = <div>
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+    </div>;
+
+    const tasks = this.state.loading ? skeleton : tasksOrdenadas;
 
     return (
       <div id="tasksDash">
@@ -174,7 +180,7 @@ export default class Tasks extends Component {
         <AddTask criarTarefa={this.criarTarefa.bind(this)} />
         <section>
           {/* TODO: Colocar mensagem para caso não tenha nenhuma task */}
-          {tasksOrdenadas}
+          {tasks}
         </section>
       </div>
     );

@@ -222,3 +222,7 @@ button.vazio:hover {
   margin: 30px auto;
   width: 300px;
 }
+
+.react-loading-skeleton {
+  margin: 15px 0;
+}
